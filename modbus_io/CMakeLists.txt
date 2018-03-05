@@ -5,5 +5,5 @@ set(CMAKE_CXX_STANDART 14)
 
 set(SOURCE_FILES main.cpp)
 add_executable(modbus_io ${SOURCE_FILES})
-target_link_libraries(${PROJECT_NAME} -L/usr/local/lib -lmodbus)
+target_link_libraries(${PROJECT_NAME} -L/usr/local/lib -lmodbus -pthread)
 include_directories(/usr/local/include/modbus)
