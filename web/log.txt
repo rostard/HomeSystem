@@ -1,0 +1,4 @@
+address = 5
+register = 1
+value = 0
+OK
