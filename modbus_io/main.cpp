@@ -77,11 +77,13 @@ int main(int argc, char* argv[]){
 
     //If there are another processes - wait
     if(lastSemaphoreName != 0){
-        sem_t* prevSemaphore = sem_open(("/" + std::to_string(lastSemaphoreName)).c_str(), O_CREAT, S_IRUSR | S_IWUSR, 0);
+        sem_t* prevSemaphore = sem_open(("/modbus_queue" + std::to_string(lastSemaphoreName)).c_str(), O_CREAT, S_IRUSR | S_IWUSR, 0);
         std::cout<< "sem_open1 " << strerror(errno) << std::endl;
         sem_wait(prevSemaphore);
         sem_close(prevSemaphore);
     }
+    //Don't len any process go further
+    sem_t* nextSemaphor = sem_open(("/modbus_queue" + std::to_string(lastSemaphoreName + 1)).c_str(), O_CREAT, S_IRUSR | S_IWUSR, 0);
 //----------------------------------------------------------------------------
 	//create modbus connection at adress "adress"
 	mc=modbus_new_rtu("/dev/ttyUSB0", 115200, 'N', 8, 1);
@@ -138,8 +140,7 @@ int main(int argc, char* argv[]){
     }
     else{
         //Else let next process do its work
-        sem_t* sem = sem_open(("/" + std::to_string(lastSemaphoreName + 1)).c_str(), O_CREAT, S_IRUSR | S_IWUSR, 0);
-        sem_post(sem);
+        sem_post(nextSemaphor);
     }
 
 	return 0;
