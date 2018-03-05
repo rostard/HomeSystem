@@ -5,8 +5,15 @@
 #include <errno.h>
 #include <unistd.h>
 #include <string.h>
+#include <semaphore.h>
+#include <fstream>
+#include <fcntl.h>
 
 modbus_t* mc;
+
+
+#define LAST_SEM_FILE "/var/www/html/lsm"
+
 
 int main(int argc, char* argv[]){
 	int adress = 1;
@@ -58,6 +65,24 @@ int main(int argc, char* argv[]){
 	printf("register = %i\n",reg);
 	printf("value = %i\n",val);
 
+// -------------------------------------------------------------------------
+    int lastSemaphoreName;
+    std::ifstream ifstream(LAST_SEM_FILE);
+    ifstream>>lastSemaphoreName;
+    ifstream.close();
+    std::ofstream ofstream(LAST_SEM_FILE);
+    ofstream<<lastSemaphoreName + 1;
+    ofstream.close();
+    std::cout << lastSemaphoreName<< std::endl;
+
+    //If there are another processes - wait
+    if(lastSemaphoreName != 0){
+        sem_t* prevSemaphore = sem_open(("/" + std::to_string(lastSemaphoreName)).c_str(), O_CREAT, S_IRUSR | S_IWUSR, 0);
+        std::cout<< "sem_open1 " << strerror(errno) << std::endl;
+        sem_wait(prevSemaphore);
+        sem_close(prevSemaphore);
+    }
+//----------------------------------------------------------------------------
 	//create modbus connection at adress "adress"
 	mc=modbus_new_rtu("/dev/ttyUSB0", 115200, 'N', 8, 1);
 	modbus_set_slave(mc, adress);
@@ -100,5 +125,22 @@ int main(int argc, char* argv[]){
 			printf("%i\n", buf[i]);
 	}
 	modbus_free(mc);
+//----------------------------------------------------------------------------
+    int currentSemaphoreLastName;
+    std::ifstream closing_ifstream(LAST_SEM_FILE);
+    closing_ifstream>>currentSemaphoreLastName;
+    closing_ifstream.close();
+    //If there are no processes behind you in queue, next process shouldn't create semaphore
+    if(currentSemaphoreLastName == lastSemaphoreName + 1){
+        std::ofstream ofstream(LAST_SEM_FILE);
+        ofstream<<0;
+        ofstream.close();
+    }
+    else{
+        //Else let next process do its work
+        sem_t* sem = sem_open(("/" + std::to_string(lastSemaphoreName + 1)).c_str(), O_CREAT, S_IRUSR | S_IWUSR, 0);
+        sem_post(sem);
+    }
+
 	return 0;
 }
