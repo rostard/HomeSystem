@@ -73,7 +73,6 @@ int main(int argc, char* argv[]){
     std::ofstream ofstream(LAST_SEM_FILE);
     ofstream<<lastSemaphoreName + 1;
     ofstream.close();
-    std::cout << lastSemaphoreName<< std::endl;
 
     //If there are another processes - wait
     if(lastSemaphoreName != 0){
