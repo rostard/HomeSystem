@@ -93,10 +93,6 @@ int main(int argc, char* argv[]){
 		return 1;
 	}
 	if(task == 1){
-		printf("address = %i\n",adress);
-                printf("register = %i\n",reg);
-                printf("value = %i\n",val);
-
 		//write to registister "reg" value "val"
 		modbus_write_register(mc, reg, val);
 		int ret;
