@@ -14,7 +14,7 @@ $(document).ready(function(){
               }
           });
 
-      }, 1000);
+      }, 400);
   });
 
   $('.btn').click(function(event){
@@ -43,7 +43,6 @@ $(document).ready(function(){
           data: 'index=' + event.target.getAttribute("index"),
           success:function(msg){
 
-            $('#message').html(msg);
           },
           ajaxError:function(){
             $('#message').html("fail");
@@ -51,4 +50,3 @@ $(document).ready(function(){
     });
   });
 });
-

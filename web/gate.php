@@ -76,10 +76,6 @@ switch ($_POST['command']) {
     break;
   case 'door':
     echo 'DOOR';
-    echo "/var/www/html/modbus_io set -a".Modbus_addr_Door." -r".NumberRegModbasDoor::MBReg_CommandFlags_Door." -v".DoorComFlag_Gate;
-    sleep(1);
-    echo "/var/www/html/modbus_io set -a".Modbus_addr_Door." -r".NumberRegModbasDoor::MBReg_CommandFlags_Door." -v".(DoorComFlag_Gate|DoorComFlag_Door);
-    echo exec('whoami');
     openDoor();
     break;
   default:

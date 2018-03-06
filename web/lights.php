@@ -24,8 +24,8 @@
               <ul>
               <li><input class="btn" type="button" action="camera1" value="Frontyard"></li>
               <li><input class="btn" type="button" action="camera2" value="Side"></li>
-              <li><input class="btn" type="button" action="camera3" value="Front"></li>
-              <li><input class="btn" type="button" action="camera4" value="Backyard"></li>
+              <li><input class="btn" type="button" action="camera3" value="Backyard"></li>
+              <li><input class="btn" type="button" action="camera4" value="">Front</li>
               </ul>
             </form>
           </div>
@@ -56,4 +56,3 @@
     <?php
   }
 ?>
-

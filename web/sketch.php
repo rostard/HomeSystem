@@ -1,7 +1,8 @@
 <?php
   $password = trim(file_get_contents("password"));
   if(isset($_COOKIE['session']) && $_COOKIE['session']==md5('yes')){
-    echo '<!DOCTYPE html>
+    ?>
+    <!DOCTYPE html>
     <html lang="en">
     <head>
       <meta charset="UTF-8">
@@ -70,16 +71,19 @@
       <script src="bootstrap.min.js"></script>
       <script src="buttons.js"></script>
     </body>
-    </html>';
+    </html>
+    <?php
   }
   else if(md5($_POST['password']) == $password){
     setcookie("session", md5("yes"), time() + 50000);
     header('Location: http://'.$_SERVER['HTTP_HOST'].'/sketch.php');
   }
   else{
-    echo '<form method="post" action="sketch.php">
+    ?>
+    <form method="post" action="sketch.php">
       <input name="password" type="text">
       <input type="submit" value="Log In">
     </form>';
+    <?php
   }
 ?>

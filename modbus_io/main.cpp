@@ -78,7 +78,6 @@ int main(int argc, char* argv[]){
     //If there are another processes - wait
     if(lastSemaphoreName != 0){
         sem_t* prevSemaphore = sem_open(("/modbus_queue" + std::to_string(lastSemaphoreName)).c_str(), O_CREAT, S_IRUSR | S_IWUSR, 0);
-        std::cout<< "sem_open1 " << strerror(errno) << std::endl;
         sem_wait(prevSemaphore);
         sem_close(prevSemaphore);
     }
