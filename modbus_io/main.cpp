@@ -9,6 +9,8 @@
 #include <fstream>
 #include <fcntl.h>
 #include <sys/types.h>
+#include <sys/file.h>
+
 modbus_t* mc;
 
 
@@ -27,6 +29,8 @@ void error_exit(const std::string& message, sem_t* nextSem, std::ostream& log){
 int main(int argc, char* argv[]){
 	std::string logFileName("/tmp/modbus_io.log" + std::to_string(getpid()));
 	std::ofstream log(logFileName, std::ios_base::app);
+	FILE* f = fopen(LAST_SEM_FILE, "r");
+	int result = flock(fileno(f), LOCK_EX);
 	int adress = 1;
 	int reg = -1;
 	uint16_t val = 1;
@@ -77,62 +81,39 @@ int main(int argc, char* argv[]){
 	printf("value = %i\n",val);
 
 // -------------------------------------------------------------------------
-    int lastSemaphoreName;
-    std::ifstream ifstream(LAST_SEM_FILE);
-    ifstream>>lastSemaphoreName;
-    ifstream.close();
-    std::ofstream ofstream(LAST_SEM_FILE);
-    ofstream<<lastSemaphoreName + 1;
-    ofstream.close();
-
-    log<<"lastSemName: "<< lastSemaphoreName <<std::endl;
-
-    //If there are another processes - wait
-    if(lastSemaphoreName != 0){
-	const char* prevSemName = ("/modbus_queue" + std::to_string(lastSemaphoreName)).c_str();
-        sem_t* prevSemaphore = sem_open(prevSemName, O_CREAT, S_IRUSR | S_IWUSR, 0);
-	log<<"prev sem " << prevSemName << " created"<< std::endl;
-	int value;
-	sem_getvalue(prevSemaphore, &value);
-	log<<"with value: "<<value<<std::endl;
-//	log.close();
-        sem_wait(prevSemaphore);
-        sem_unlink(prevSemName);
-//	log.open("/tmp/modbus_io.log", std::ios_base::app);
-    }
-    //Don't len any process go further
-    const char* nextSemName = ("/modbus_queue" + std::to_string(lastSemaphoreName+1)).c_str();
-    sem_t* nextSemaphor = sem_open(nextSemName, O_CREAT, S_IRUSR | S_IWUSR, 0);
-    log<<"next sem " << nextSemName << " created"<< std::endl;
-    int value;
-    sem_getvalue(nextSemaphor, &value);
-    log<<"with value: "<<value<<std::endl;
 
 //----------------------------------------------------------------------------
 	//create modbus connection at adress "adress"
 	mc=modbus_new_rtu("/dev/ttyUSB0", 115200, 'N', 8, 1);
 	modbus_set_slave(mc, adress);
-	if(modbus_connect(mc)==-1){
-		fprintf(stderr, "Connection failed: %s\n", modbus_strerror(errno));
-		error_exit("Connection failed", nextSemaphor, log);
+	int numOfTries = 0;
+	int mxTries = 5;
+	for(numOfTries = 0; numOfTries<mxTries && modbus_connect(mc)==-1; numOfTries++){
+	}
+	if(numOfTries == mxTries){
+		log<<"Connection failed: "<< modbus_strerror(errno)<<std::endl;
 		return 1;
 	}
 	if(task == 1){
 		//write to registister "reg" value "val"
-		modbus_write_register(mc, reg, val);
+		for(numOfTries = 0; numOfTries < mxTries && modbus_write_register(mc, reg, val) == -1; numOfTries++){}
+		if(numOfTries == mxTries){
+                	log<<"Write failed: "<< modbus_strerror(errno)<<std::endl;
+                	return 1;
+                }
+
 		int ret;
 		uint16_t buf[1];
-		if(ret=modbus_read_registers(mc, reg, 1, buf) == -1){
-			fprintf(stderr, "Read_registers failed: %s\n", modbus_strerror(errno));
+		for(numOfTries = 0; numOfTries < mxTries && modbus_read_registers(mc, reg, 1, buf) == -1; numOfTries++){}
+		if(numOfTries == mxTries){
+                        log<<"Read failed: "<< modbus_strerror(errno)<<std::endl;
 			modbus_free(mc);
-			error_exit("Read registers failed", nextSemaphor, log);
-			return 1;
-		}
+                        return 1;
+                }
 		//check if value was wriiten
 		if(buf[0] != val){
 			fprintf(stderr, "Value %i wasn't written", val);
 			modbus_free(mc);
-			error_exit("Value wan't written" ,nextSemaphor, log);
 			return 1;
 		}
 	}
@@ -140,34 +121,18 @@ int main(int argc, char* argv[]){
 		//read "num" registers from "reg"
 		int ret;
 		uint16_t buf[64];
-		if((ret=modbus_read_registers(mc, reg, num, buf))==-1){
-			fprintf(stderr, "Read_registers failed: %s\n", modbus_strerror(errno));
-			modbus_free(mc);
-			error_exit("Read registers failed" ,nextSemaphor, log);
-			return 1;
-		}
+		for(numOfTries = 0; numOfTries < mxTries && modbus_read_registers(mc, reg, num, buf) == -1; numOfTries++){}
+                if(numOfTries == mxTries){
+                        log<<"Read failed: "<< modbus_strerror(errno)<<std::endl;
+                        modbus_free(mc);
+                        return 1;
+                }
 		//print all read registers
 		for(int i = 0; i<num; i++)
 			printf("%i\n", buf[i]);
 	}
 	modbus_free(mc);
 //----------------------------------------------------------------------------
-    int currentSemaphoreLastName;
-    std::ifstream closing_ifstream(LAST_SEM_FILE);
-    closing_ifstream>>currentSemaphoreLastName;
-    closing_ifstream.close();
-    //If there are no processes behind you in queue, next process shouldn't create semaphore
-    if(currentSemaphoreLastName == lastSemaphoreName + 1){
-        std::ofstream ofstream(LAST_SEM_FILE);
-        ofstream<<0;
-        ofstream.close();
-    }
-    else{
-        //Else let next process do its work
-//        sem_post(nextSemaphor);
-    }
-    sem_post(nextSemaphor);
     log.close();
-    remove(logFileName.c_str());
     return 0;
 }
