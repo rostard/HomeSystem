@@ -143,7 +143,7 @@ class NumberRegModbasDoor
 
 function read_register($address, $register, $number)
 {
-    $return_value = 1
+    $return_value = 1;
     while ($return_value == 1) {
       exec("/var/www/html/modbus_io get -a".$address." -r".$register." -n".$number." 2>&1", $output, $return_value);
     }
@@ -152,7 +152,7 @@ function read_register($address, $register, $number)
 
 function write_register($address, $register, $value)
 {
-    $return_value = 1
+    $return_value = 1;
     while ($return_value == 1) {
         exec("/var/www/html/modbus_io set -a".$address." -r".$register." -v".$value, $output, $return_value);
     }
