@@ -143,13 +143,20 @@ class NumberRegModbasDoor
 
 function read_register($address, $register, $number)
 {
-    exec("/var/www/html/modbus_io get -a".$address." -r".$register." -n".$number." 2>&1", $output, $return_value);
+    $return_value = 1
+    while ($return_value == 1) {
+      exec("/var/www/html/modbus_io get -a".$address." -r".$register." -n".$number." 2>&1", $output, $return_value);
+    }
     return $output;
 }
 
 function write_register($address, $register, $value)
 {
-    exec("/var/www/html/modbus_io set -a".$address." -r".$register." -v".$value, $output, $return_value);
+    $return_value = 1
+    while ($return_value == 1) {
+        exec("/var/www/html/modbus_io set -a".$address." -r".$register." -v".$value, $output, $return_value);
+    }
+
     return $output;
 }
 
