@@ -20,7 +20,7 @@ $(document).ready(function(){
     $.ajax({
           type: 'POST',
           url: 'setAutoLightTime.php',
-          data: 'from='+$('.time_from').value+'&to='+$('.time_to').value,
+          data: 'from='+$('.time_from').val()+'&to='+$('.time_to').val(),
           success:function(msg){
 
           },
