@@ -27,7 +27,7 @@ void error_exit(const std::string& message, sem_t* nextSem, std::ostream& log){
 
 
 int main(int argc, char* argv[]){
-	std::string logFileName("/tmp/modbus_io.log" + std::to_string(getpid()));
+	std::string logFileName("/tmp/modbus/modbus_io.log" + std::to_string(getpid()));
 	std::ofstream log(logFileName, std::ios_base::app);
 	FILE* f = fopen(LAST_SEM_FILE, "r");
 	int result = flock(fileno(f), LOCK_EX);

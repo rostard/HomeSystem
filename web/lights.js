@@ -16,6 +16,19 @@ $(document).ready(function(){
 
       }, 400);
   });
+  $('.time_btn').click(function(event){
+    $.ajax({
+          type: 'POST',
+          url: 'setAutoLightTime.php',
+          data: 'from='+$('.time_from').value+'&to='+$('.time_to').value,
+          success:function(msg){
+
+          },
+          ajaxError:function(){
+            $('#message').html("fail");
+          }
+    });
+  });
 
   $('.btn').click(function(event){
     var cam_url = "";

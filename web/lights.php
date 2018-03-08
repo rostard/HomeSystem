@@ -1,5 +1,6 @@
 <?php
   $password = trim(file_get_contents("password"));
+  list($from_time, $to_time) = explode("-", trim(file_get_contents("auto_light_time")));
   if(isset($_COOKIE['session']) && $_COOKIE['session']==md5('yes')){
     ?>
     <!DOCTYPE html>
@@ -35,7 +36,13 @@
         <div class="light2">L2 <span> </span> <input class="light_btn" type="button" index=1> </div>
         <div class="light3">L3 <span> </span> <input class="light_btn" type="button" index=2> </div>
 
-
+          <div class="auto_light_time">
+            <form action="set_auto_light_time.php" method="post">
+              <input type="number" class="time_from" value="<?php echo $from_time; ?>">
+              <input type="number" class="time_to" value="<?php echo $to_time; ?>">
+              <input class="time_btn" type="button" name="submit_btn" value="Submit">
+            </form>
+          </div>
 
       <script src="jquery-1.12.3.min.js"></script>
       <script src="bootstrap.min.js"></script>
