@@ -16,16 +16,6 @@ modbus_t* mc;
 
 #define LAST_SEM_FILE "/var/www/html/lsm"
 
-
-void error_exit(const std::string& message, sem_t* nextSem, std::ostream& log){
-	log<<message<<std::endl;
-	std::ofstream ofstream(LAST_SEM_FILE);
-        ofstream<<0;
-        ofstream.close();
-	sem_post(nextSem);
-}
-
-
 int main(int argc, char* argv[]){
 	std::string logFileName("/tmp/modbus/modbus_io.log" + std::to_string(getpid()));
 	std::ofstream log(logFileName, std::ios_base::app);

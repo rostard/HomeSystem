@@ -22,7 +22,7 @@ $(document).ready(function(){
           url: 'setAutoLightTime.php',
           data: 'from='+$('.time_from').val()+'&to='+$('.time_to').val(),
           success:function(msg){
-
+              ('#message').html(msg);
           },
           ajaxError:function(){
             $('#message').html("fail");
@@ -55,7 +55,7 @@ $(document).ready(function(){
           url: 'setLight.php',
           data: 'index=' + event.target.getAttribute("index"),
           success:function(msg){
-
+            
           },
           ajaxError:function(){
             $('#message').html("fail");

@@ -1,6 +1,6 @@
 <?php
   $password = trim(file_get_contents("password"));
-  list($from_time, $to_time) = explode("-", trim(file_get_contents("auto_light_time")));
+  list($from_time, $to_time) = explode("-", trim(file_get_contents("auto_light_time.txt")));
   if(isset($_COOKIE['session']) && $_COOKIE['session']==md5('yes')){
     ?>
     <!DOCTYPE html>
