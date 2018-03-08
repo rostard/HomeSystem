@@ -4,6 +4,17 @@ include("GateRegisters.php");
 
 const GateCommandMask =  GateComFlag_Izm_DS18B20;
 
+session_start();
+
+if(!isset($_SESSION["id"])){
+  $_SESSION["id"] = uniqid();
+}
+else echo $_SESSION["id"];
+
+if(file_exists("uses_gate") && !isset($_POST["force"])){
+  exit($_POST['command']." busy");
+}
+
 function stopGate()
 {
   write_register(Modbus_addr_Gate, NumberRegModbasGate::MBReg_CommandFlags_Gate, GateComFlag_STOP | GateCommandMask);
@@ -11,6 +22,9 @@ function stopGate()
 }
 
 function openGate(){
+  $handle = fopen("uses_gate", "w");
+  fwrite($handle, $_SESSION["id"]);
+  fclose($handle);
   stopGate();
   write_register(Modbus_addr_Door, NumberRegModbasDoor::MBReg_CommandFlags_Door, DoorComFlag_Door);
   if(write_register(Modbus_addr_Gate, NumberRegModbasGate::MBReg_MotorSpeed_Gate, ConstOpenSpeed)[0] == "FAIL"){
@@ -48,6 +62,7 @@ function closeGate(){
   if(write_register(Modbus_addr_Gate, NumberRegModbasGate::MBReg_CommandFlags_Gate, $value)[0] == "FAIL"){
     echo "Error";
   }
+  unink("uses_gate");
 }
 
 function openDoor(){
@@ -62,23 +77,23 @@ $numberRegModbasGate = new NumberRegModbasGate;
 $numberRegModbasDoor = new NumberRegModbasDoor;
 switch ($_POST['command']) {
   case 'stop':
-    stopGate();
-    echo 'STOP';
-    break;
+  stopGate();
+  echo 'STOP';
+  break;
   case 'open':
 
-    echo 'OPEN';
-    openGate();
-    break;
+  echo 'OPEN';
+  openGate();
+  break;
   case 'close':
-    echo 'CLOSE';
-    closeGate();
-    break;
+  echo 'CLOSE';
+  closeGate();
+  break;
   case 'door':
-    echo 'DOOR';
-    openDoor();
-    break;
+  echo 'DOOR';
+  openDoor();
+  break;
   default:
-    break;
+  break;
 }
 ?>
