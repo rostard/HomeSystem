@@ -10,7 +10,7 @@ if(!isset($_SESSION["id"])){
   $_SESSION["id"] = uniqid();
 }
 
-if(file_exists("uses_gate") && file_get_contents("uses_gate") != $_SESSION["id"] && !isset($_POST["force"])){
+if(file_exists("/tmp/uses_gate") && file_get_contents("/tmp/uses_gate") != $_SESSION["id"] && !isset($_POST["force"])){
   exit($_POST['command']." busy");
 }
 
@@ -21,7 +21,7 @@ function stopGate()
 }
 
 function openGate(){
-  $handle = fopen("uses_gate", "w");
+  $handle = fopen("/tmp/uses_gate", "w");
   fwrite($handle, $_SESSION["id"]);
   fclose($handle);
   stopGate();
@@ -61,7 +61,7 @@ function closeGate(){
   if(write_register(Modbus_addr_Gate, NumberRegModbasGate::MBReg_CommandFlags_Gate, $value)[0] == "FAIL"){
     echo "Error";
   }
-  unlink("uses_gate");
+  unlink("/tmp/uses_gate");
 }
 
 function openDoor(){
