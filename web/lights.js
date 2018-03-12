@@ -34,16 +34,16 @@ $(document).ready(function(){
     var cam_url = "";
     switch (event.target.getAttribute("action")) {
       case "camera1":
-        cam_url = "http://192.168.20.151:8081";
+        cam_url = "http://176.111.183.231:8081";
         break;
       case "camera2":
-        cam_url = "http://192.168.20.151:8082";
+        cam_url = "http://176.111.183.231:8082";
         break;
       case "camera3":
-        cam_url = "http://192.168.20.151:8083";
+        cam_url = "http://176.111.183.231:8083";
         break;
       case "camera4":
-        cam_url = "http://192.168.20.151:8084";
+        cam_url = "http://176.111.183.231:8084";
         break;
       default:
     }
@@ -55,7 +55,7 @@ $(document).ready(function(){
           url: 'setLight.php',
           data: 'index=' + event.target.getAttribute("index"),
           success:function(msg){
-            
+
           },
           ajaxError:function(){
             $('#message').html("fail");

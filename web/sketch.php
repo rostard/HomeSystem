@@ -51,7 +51,7 @@
           </div>
 
           <div class="video">
-            <img src="http://192.168.20.151:8081/">
+            <img src="http://176.111.183.231:8081/">
           </div>
         </div>
         <div class="stat">
