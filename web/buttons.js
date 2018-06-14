@@ -11,7 +11,7 @@ $(document).ready(function(){
         success:function(data){
           for(var key in data){
             if(key === "numOfTurns"){
-              $(".turns_indicator>div").css("width", str(int(data[key])/1950)+"%");
+              $(".turns_indicator>div").css("width", parseInt(data[key]/19.5)+"%");
             }
             $('.stat>.'+key+'>span').text(data[key]);
           }
