@@ -38,6 +38,7 @@
       </div> -->
 
         <p id="message">Ворота</p>
+        <div class="turns_indicator"><div></div></div>
         <div class="control">
           <div class="buttons">
           <form method="post" action="">

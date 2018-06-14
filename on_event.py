@@ -18,7 +18,7 @@ print("id:", light_id, "state:", light_state)
 
 #If day don't do anything
 cur_time = time.localtime(time.time())
-if cur_time.tm_hour < work_time[0] and cur_time.tm_hour >= work_time[1]:
+if cur_time.tm_hour < work_time[0] and cur_time.tm_hour >= work_time[1] and light_state:
     print("Not in time", cur_time.tm_hour)
     exit(0)
 
