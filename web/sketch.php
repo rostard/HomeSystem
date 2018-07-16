@@ -6,37 +6,14 @@
     <html lang="en">
     <head>
       <meta charset="UTF-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <meta http-equiv="X-UA-Compatible" content="ie=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"/>
       <title>Gate</title>
       <link rel="stylesheet" href="bootstrap.min.css">
       <link rel="stylesheet" href="main.css">
     </head>
 
     <body>
-      <!-- <div class="container">
-        <p id="message">Ворота</p>
-        <div class="row">
-          <div class="col-md-4 col-xs-12">
-            <div class="buttons">
-            <form method="post" action="">
-              <ul>
-              <li><input class="btn" type="button" action="stop" value="STOP"></li>
-              <li><input class="btn" type="button" action="open" value="Open"></li>
-              <li><input class="btn" type="button" action="close" value="Close"></li>
-              <li><input class="btn" type="button" action="door" value="Door"></li>
-              </ul>
-            </form>
-            </div>
-          </div>
-          <div class="col-md-8 col-xs-12" >
-            <div class="video">
-            <img src="http://192.168.20.151:8081/">
-          </div>
-          </div>
-        </div>
-      </div> -->
-
         <p id="message">Ворота</p>
         <div class="turns_indicator"><div></div></div>
         <div class="control">
@@ -47,13 +24,16 @@
             <li><input class="btn" type="button" action="open" value="Open"></li>
             <li><input class="btn" type="button" action="close" value="Close"></li>
             <li><input class="btn" type="button" action="door" value="Door"></li>
+            <li><input class="vid_btn" type="button" action="Video" value="Video"></li>
+
             </ul>
           </form>
           </div>
 
-          <div class="video">
-            <img src="http://176.111.183.231:8081/">
+          <div id="videoBlock">
           </div>
+
+
         </div>
         <div class="stat">
           <div class="numOfTurns"> Number of turns: <span></span></div>
@@ -70,7 +50,7 @@
 
       <script src="jquery-1.12.3.min.js"></script>
       <script src="bootstrap.min.js"></script>
-      <script src="buttons.js"></script>
+      <script src="buttons.js?123"></script>
     </body>
     </html>
     <?php
@@ -81,10 +61,11 @@
   }
   else{
     ?>
+
     <form method="post" action="sketch.php">
-      <input name="password" type="text">
+      <input name="password" type="password">
       <input type="submit" value="Log In">
-    </form>';
+    </form>
     <?php
   }
 ?>
