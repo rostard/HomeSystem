@@ -9,6 +9,11 @@ $(document).ready(function(){
               data: {some_params: 1},
               success:function(data){
                   for(var key in data){
+                      if(key.slice(0, 5) == "light"){
+                          var color = "white";
+                          if(data[key])color = "yellow";
+                          $('.'+key+'>img').css('background-color', color);
+                      }
                       $('.'+key+'>span').text(data[key]);
                   }
               }

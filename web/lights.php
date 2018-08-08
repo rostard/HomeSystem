@@ -32,9 +32,9 @@
           </div>
         </div>
 
-        <div class="light1">L1 <span> </span> <input class="light_btn" type="button" index=0> </div>
-        <div class="light2">L2 <span> </span> <input class="light_btn" type="button" index=1> </div>
-        <div class="light3">L3 <span> </span> <input class="light_btn" type="button" index=2> </div>
+        <div class="light1">L1 <span> </span> <img class="light_btn" index=0> </div>
+        <div class="light2">L2 <span> </span> <img class="light_btn" index=1> </div>
+        <div class="light3">L3 <span> </span> <img class="light_btn" index=2> </div>
 
           <div class="auto_light_time">
             <form action="set_auto_light_time.php" method="post">
@@ -57,7 +57,7 @@
   else{
     ?>
     <form method="post" action="lights.php">
-      <input name="password" type="text">
+      <input name="password" type="password">
       <input type="submit" value="Log In">
     </form>
     <?php
