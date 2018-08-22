@@ -56,7 +56,7 @@
     <?php
   }
   else if(md5($_POST['password']) == $password){
-    setcookie("session", md5("yes"), time() + 50000);
+    setcookie("session", md5("yes"), time() + 2592000);
     header('Location: http://'.$_SERVER['HTTP_HOST'].'/sketch.php');
   }
   else{
