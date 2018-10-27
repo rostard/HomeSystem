@@ -102,3 +102,9 @@ img{
     width: 40vw;
   }
 }
+.left {
+    text-align: center;
+    color: wheat;
+    font-size: 18px;
+    margin-top: 15px;
+}

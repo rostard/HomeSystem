@@ -14,8 +14,13 @@
     </head>
 
     <body>
-        <p id="message">Ворота</p>
+	<p id="message"></p>
         <div class="turns_indicator"><div></div></div>
+
+	<div class="stat left">
+        <span>Temperature: </span><span class="temperature"> <span></span>	&#8451 </span>
+        </div>
+
         <div class="control">
           <div class="buttons">
           <form method="post" action="">
