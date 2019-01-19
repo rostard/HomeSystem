@@ -50,7 +50,7 @@
           <div class="stopedOnD3">Stoped on D3: <span></span></div>
           <div class="stopedOnCurrent">Stoped on current: <span></span></div>
           <div class="stopedOnTurns">Stoped on numOfTurns: <span></span></div>
-
+	  <div class="stopedOnNoTurns">Stoped on NoTurns: <span></span></div>
         </div>
 
       <script src="jquery-1.12.3.min.js"></script>
