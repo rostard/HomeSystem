@@ -73,7 +73,7 @@ $(document).ready(function(){
 
   }
   $('.vid_btn').click(function(event){
-    document.getElementById('videoBlock').innerHTML = "<img src='http:\/\/176.111.183.231:8081/'>";
+    document.getElementById('videoBlock').innerHTML = "<img src='http:\/\/boiko.asuscomm.com:8081/'>";
   });
 
   $('#videoBlock').click(function(event){
