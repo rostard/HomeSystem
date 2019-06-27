@@ -1,0 +1,35 @@
+<html lang="en">
+    <head>
+      <meta charset="UTF-8">
+      <meta http-equiv="X-UA-Compatible" content="ie=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"/>
+      <title>SetLightVars</title>
+      <link rel="stylesheet" href="bootstrap.min.css">
+      <link rel="stylesheet" href="main.css">
+    </head>
+
+    <body>
+
+<ul class="sensors"> 
+
+  <li class="active"> <a href="#"> <div> Bathroom </div> </a> </li>
+  <li> <a href="#"> <div> Coridor </div> </a> </li> 
+
+  </ul> 
+  <form action="http://192.168.3.201/setVars" method="post" class="set">
+    decisionDuration: <input type="number" name="decisionDuration"><br>
+    decisionDurationAgain: <input type="number" name="decisionDurationAgain"><br>
+    activationsForDecision: <input type="number" name="activationsForDecision"><br>
+    activationsForDecisionAgain: <input type="number" name="activationsForDecisionAgain"><br>
+    <input type="submit" value="Submit">
+  </form>
+
+
+
+
+      <script src="jquery-1.12.3.min.js"></script>
+      <script src="bootstrap.min.js"></script>
+      <script src="lights.js"></script>
+    </body>
+    </html>
+
