@@ -44,9 +44,9 @@
             </form>
           </div>
 
-      <script src="jquery-1.12.3.min.js"></script>
+      <script src="js/jquery-1.12.3.min.js"></script>
       <script src="bootstrap.min.js"></script>
-      <script src="lights.js"></script>
+      <script src="js/lights.js"></script>
     </body>
     <?php
   }

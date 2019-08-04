@@ -1,4 +1,4 @@
-sudo cp web/* /var/www/html
+sudo cp -r web/* /var/www/html
 sudo cp auto_light_time.txt /var/www/html
 sudo cp on_event.py /var/www/html
 

@@ -53,9 +53,9 @@
 	  <div class="stopedOnNoTurns">Stoped on NoTurns: <span></span></div>
         </div>
 
-      <script src="jquery-1.12.3.min.js"></script>
+      <script src="js/jquery-1.12.3.min.js"></script>
       <script src="bootstrap.min.js"></script>
-      <script src="buttons.js?123"></script>
+      <script src="js/buttons.js?123"></script>
     </body>
     </html>
     <?php
