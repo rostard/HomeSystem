@@ -54,6 +54,18 @@ $(document).ready(function(){
     }
     $('.video>img').attr("src", cam_url);
   });
+  $('#corridor-tab').click(function(event) {
+    $('.tabs-body').attr('action', 'http://192.168.3.202/setVars');
+    $('#corridor-tab').addClass('active');
+    $('#bathroom-tab').removeClass('active');
+    $('#settings').attr('src', 'http://192.168.3.202/getVars');
+  });
+  $('#bathroom-tab').click(function(event) {
+    $('.tabs-body').attr('action', 'http://192.168.3.201/setVars');
+    $('#bathroom-tab').addClass('active');
+    $('#corridor-tab').removeClass('active');
+    $('#settings').attr('src', 'http://192.168.3.201/getVars');
+  });
   $('.light_btn').click(function(event) {
     $.ajax({
           type: 'POST',

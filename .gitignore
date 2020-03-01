@@ -44,3 +44,13 @@ modbus_io/cmake-build-debug/CMakeFiles/progress.marks
 modbus_io/cmake-build-debug/Makefile
 modbus_io/cmake-build-debug/cmake_install.cmake
 modbus_io/cmake-build-debug/modbus_io.cbp
+modbus_io/CMakeCache.txt
+modbus_io/CMakeFiles/
+modbus_io/Makefile
+modbus_io/cmake_install.cmake
+modbus_io/modbus_io
+web/light_0.txt
+web/light_1.txt
+web/light_2.txt
+web/last_auto_light1
+web/last_auto_light0

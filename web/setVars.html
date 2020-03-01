@@ -5,26 +5,25 @@
       <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"/>
       <title>SetLightVars</title>
       <link rel="stylesheet" href="bootstrap.min.css">
-      <link rel="stylesheet" href="main.css">
+      <link rel="stylesheet" href="future.css">
     </head>
 
     <body>
 
-<ul class="sensors">
 
-  <li class="active"> <a href="#"> <div> Bathroom </div> </a> </li>
-  <li> <a href="#"> <div> Coridor </div> </a> </li>
-
-  </ul>
-  <form action="http://192.168.3.201/setVars" method="post" class="set">
+    <ul class="sensors tabs-items">
+      <li class="active" id="bathroom-tab"> <a href="#"> <div> Bathroom </div> </a> </li>
+      <li id="corridor-tab"> <a href="#"> <div> Coridor </div> </a> </li>
+    </ul>
+  <form action="http://192.168.3.201/setVars" method="post" class="set tabs-body wrapper">
     decisionDuration: <input type="number" name="decisionDuration"><br>
     decisionDurationAgain: <input type="number" name="decisionDurationAgain"><br>
     activationsForDecision: <input type="number" name="activationsForDecision"><br>
     activationsForDecisionAgain: <input type="number" name="activationsForDecisionAgain"><br>
     <input type="submit" value="Submit">
   </form>
-
-
+  <iframe id="settings" src="http://192.168.3.201/getVars">
+  </iframe>
 
 
       <script src="js/jquery-1.12.3.min.js"></script>
