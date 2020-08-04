@@ -21,6 +21,11 @@ cur_time = time.localtime(time.time())
 if cur_time.tm_hour < work_time[0] and cur_time.tm_hour >= work_time[1] and light_state:
     print("Not in time", cur_time.tm_hour)
     exit(0)
+with open(config_dir + "light_" + str(light_id) + ".txt", "r") as f:
+    if cur_time < time.strptime(f.read(), "%B %d %Y %I:%M %p"):
+        print("Turned on manual. Waiting")
+        exit(0)
+
 
 import subprocess
 read_output = subprocess.Popen(config_dir + "modbus_io get -a5 -r1 -n1", shell=True, stdout=subprocess.PIPE).stdout

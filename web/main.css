@@ -37,10 +37,11 @@ ul li{
 }
 
 .light_btn{
-  width: 20px;
-  height: 20px;
+  width: 40px;
+  height: 40px;
   display: inline-block;
   background-color: #FFF;
+  border-radius: 15px;
 }
 
 
