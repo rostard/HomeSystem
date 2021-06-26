@@ -50,6 +50,7 @@
           <div class="stopedOnD1">Stoped on D1: <span></span></div>
           <div class="stopedOnD2">Stoped on D2: <span></span></div>
           <div class="stopedOnD3">Stoped on D3: <span></span></div>
+          <div class="wasReseted">Was reseted: <span></span></div>
           <div class="stopedOnCurrent">Stoped on current: <span></span></div>
           <div class="stopedOnTurns">Stoped on numOfTurns: <span></span></div>
 	  <div class="stopedOnNoTurns">Stoped on NoTurns: <span></span></div>

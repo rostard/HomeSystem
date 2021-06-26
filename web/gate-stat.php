@@ -18,6 +18,7 @@ $response = array(
     'stopedOnD1'=>($state_flags[11+3] & 4) > 0,
     'stopedOnD2'=>($state_flags[11+3] & 8) > 0,
     'stopedOnD3'=>($state_flags[11+3] & 16) > 0,
+    'wasReseted'=>($state_flags[11+3] & 32) > 0,
     'stopedOnCurrent'=>($state_flags[11+3] & 2) > 0,
     'stopedOnTurns'=>($state_flags[11+3] & 32) > 0,
     'stopedOnNoTurns'=>($state_flags[11+3] & 2048) > 0,

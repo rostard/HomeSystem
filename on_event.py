@@ -29,7 +29,8 @@ with open(config_dir + "light_" + str(light_id) + ".txt", "r") as f:
 
 import subprocess
 read_output = subprocess.Popen(config_dir + "modbus_io get -a5 -r1 -n1", shell=True, stdout=subprocess.PIPE).stdout
-cur_light = int(read_output.readlines()[3].strip())
+value_str = read_output.readlines()[2].decode("windows-1252")
+cur_light = int(value_str.split('=')[-1].strip())
 set_value = 0
 if light_state:
     with open("/tmp/last_auto_light"+str(light_id), "r") as f:
